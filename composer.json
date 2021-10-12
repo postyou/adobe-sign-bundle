@@ -1,0 +1,28 @@
+{
+    "name": "postyou/adobe-sign-bundle",
+    "type": "symfony-bundle",
+    "description": "Adobe Sign API Client",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Markus Nestmann",
+            "homepage": "https://github.com/MarkejN"
+        },
+        {
+            "name": "POSTYOU Digital- & Filmagentur",
+            "homepage": "https://github.com/postyou"
+        }
+    ],
+    "require": {
+        "php": "^7.2 || ^8.0",
+        "symfony/config": "^4.4 || ^5.1",
+        "symfony/dependency-injection": "^4.4 || ^5.1",
+        "symfony/http-kernel": "^4.4 || ^5.1",
+        "knpuniversity/oauth2-client-bundle": "^2.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Postyou\\AdobeSignBundle\\": "src/"
+        }
+    }
+}
