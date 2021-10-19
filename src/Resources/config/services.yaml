@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true
+
+    Postyou\AdobeSignBundle\:
+        resource: ../../
+        exclude: ../../{DependencyInjection,Resources}
+
+    Postyou\AdobeSignBundle\AccessTokenConfig:
+        arguments:
+            $projectDir: '%kernel.project_dir%'

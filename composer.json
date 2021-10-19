@@ -3,6 +3,7 @@
     "type": "symfony-bundle",
     "description": "Adobe Sign API Client",
     "license": "MIT",
+    "version": "v0.0.1",
     "authors": [
         {
             "name": "Markus Nestmann",
