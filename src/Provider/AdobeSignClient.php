@@ -1,8 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * @author  POSTYOU Digital- & Filmagentur
+ * @license MIT
+ */
+
 namespace Postyou\AdobeSignBundle\Provider;
 
-use Contao\System;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
@@ -20,7 +26,7 @@ class AdobeSignClient extends OAuth2Client
             $accessToken,
             [
                 'headers' => ['Content-Type' => 'application/json'],
-                'body' => json_encode($agreementInfo)
+                'body' => json_encode($agreementInfo),
             ]
         );
 
@@ -28,9 +34,9 @@ class AdobeSignClient extends OAuth2Client
     }
 
     /**
-     * @param AccessToken $accessToken
-     * @return mixed
      * @throws IdentityProviderException
+     *
+     * @return mixed
      */
     public function listLibraryDocuments(AccessToken $accessToken)
     {

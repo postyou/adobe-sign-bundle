@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+/*
+ * @author  POSTYOU Digital- & Filmagentur
+ * @license MIT
+ */
+
 namespace Postyou\AdobeSignBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;

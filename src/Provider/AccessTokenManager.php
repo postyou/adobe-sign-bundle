@@ -2,6 +2,11 @@
 
 declare(strict_types=1);
 
+/*
+ * @author  POSTYOU Digital- & Filmagentur
+ * @license MIT
+ */
+
 namespace Postyou\AdobeSignBundle\Provider;
 
 use League\OAuth2\Client\Token\AccessToken;
@@ -9,7 +14,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Yaml;
 use Webmozart\PathUtil\Path;
 
-class AccessTokenConfig
+class AccessTokenManager
 {
     private string $configFile;
     private Filesystem $filesystem;
@@ -21,9 +26,7 @@ class AccessTokenConfig
             $projectDir = (string) $realpath;
         }
 
-        // Todo: webmozart
         $this->configFile = Path::join($projectDir, 'config/adobe-sign.yaml');
-        $this->filesystem = new Filesystem();
     }
 
     public function read(): AccessToken
@@ -31,7 +34,6 @@ class AccessTokenConfig
         $this->accessToken = null;
 
         if (is_file($this->configFile)) {
-            // Todo: yaml
             $config = Yaml::parse(file_get_contents($this->configFile));
 
             if (\is_array($config)) {

@@ -1,5 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ * @author  POSTYOU Digital- & Filmagentur
+ * @license MIT
+ */
+
 namespace Postyou\AdobeSignBundle\Provider;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -7,7 +14,6 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 
-/** @package Postyou\AdobeSignBundle\Provider */
 class AdobeSign extends AbstractProvider
 {
     use BearerAuthorizationTrait;
@@ -34,13 +40,13 @@ class AdobeSign extends AbstractProvider
         return $this->host.'/oauth/revoke';
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token)
+    public function getResourceOwnerDetailsUrl(AccessToken $token): void
     {
     }
 
     protected function getDefaultScopes()
     {
-        return isset($this->scope) ? $this->scope : [];
+        return $this->scope ?? [];
     }
 
     protected function getScopeSeparator()
@@ -48,11 +54,11 @@ class AdobeSign extends AbstractProvider
         return ' ';
     }
 
-    protected function checkResponse(ResponseInterface $response, $data)
+    protected function checkResponse(ResponseInterface $response, $data): void
     {
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token)
+    protected function createResourceOwner(array $response, AccessToken $token): void
     {
     }
 }
