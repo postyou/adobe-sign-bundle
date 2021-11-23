@@ -6,6 +6,6 @@ services:
         resource: ../../
         exclude: ../../{DependencyInjection,Resources}
 
-    Postyou\AdobeSignBundle\AccessTokenManager:
+    Postyou\AdobeSignBundle\Provider\AccessTokenManager:
         arguments:
             $projectDir: '%kernel.project_dir%'

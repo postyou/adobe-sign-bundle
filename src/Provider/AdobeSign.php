@@ -27,12 +27,11 @@ class AdobeSign extends AbstractProvider
 
     public function getBaseAccessTokenUrl(array $params)
     {
-        return $this->host.'/oauth/token';
-    }
+        if ('refresh_token' === $params['grant_type']) {
+            return $this->host.'/oauth/refresh';
+        }
 
-    public function getBaseRefreshTokenUrl()
-    {
-        return $this->host.'/oauth/refresh';
+        return $this->host.'/oauth/token';
     }
 
     public function getBaseRevokeTokenUrl()
