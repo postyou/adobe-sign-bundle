@@ -27,6 +27,7 @@ class AccessTokenManager
         }
 
         $this->configFile = Path::join($projectDir, 'config/adobe-sign.yaml');
+        $this->filesystem = new Filesystem();
     }
 
     public function read(): AccessToken
