@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Postyou\AdobeSignBundle\Provider;
 
+use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
@@ -55,6 +56,9 @@ class AdobeSign extends AbstractProvider
 
     protected function checkResponse(ResponseInterface $response, $data): void
     {
+        if (200 !== $response->getStatusCode()) {
+            throw new Exception("Error Processing Request", 1);
+        }
     }
 
     protected function createResourceOwner(array $response, AccessToken $token): void

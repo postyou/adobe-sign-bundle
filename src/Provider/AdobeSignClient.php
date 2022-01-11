@@ -15,6 +15,11 @@ use League\OAuth2\Client\Token\AccessToken;
 
 class AdobeSignClient extends OAuth2Client
 {
+    /**
+     * @throws IdentityProviderException 
+     * 
+     * @return mixed 
+     */
     public function createAgreement(AccessToken $accessToken, array $agreementInfo)
     {
         /** @var AdobeSign */
