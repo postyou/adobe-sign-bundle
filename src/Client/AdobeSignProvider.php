@@ -7,7 +7,7 @@ declare(strict_types=1);
  * @license MIT
  */
 
-namespace Postyou\AdobeSignBundle\Provider;
+namespace Postyou\AdobeSignBundle\Client;
 
 use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -15,7 +15,7 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 
-class AdobeSign extends AbstractProvider
+class AdobeSignProvider extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 

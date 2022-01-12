@@ -7,7 +7,7 @@ declare(strict_types=1);
  * @license MIT
  */
 
-namespace Postyou\AdobeSignBundle\Provider;
+namespace Postyou\AdobeSignBundle\Client;
 
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -22,7 +22,7 @@ class AdobeSignClient extends OAuth2Client
      */
     public function createAgreement(AccessToken $accessToken, array $agreementInfo)
     {
-        /** @var AdobeSign */
+        /** @var AdobeSignProvider */
         $provider = $this->getOAuth2Provider();
         $request = $provider->getAuthenticatedRequest(
             'POST',

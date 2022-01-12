@@ -2,8 +2,8 @@ knpu_oauth2_client:
     clients:
         adobe_sign:
             type: generic
-            provider_class: Postyou\AdobeSignBundle\Provider\AdobeSign
-            client_class: Postyou\AdobeSignBundle\Provider\AdobeSignClient
+            provider_class: Postyou\AdobeSignBundle\Client\AdobeSignProvider
+            client_class: Postyou\AdobeSignBundle\Client\AdobeSignClient
             client_id: '%env(ADOBE_SIGN_CLIENT_ID)%'
             client_secret: '%env(ADOBE_SIGN_CLIENT_SECRET)%'
             redirect_route: adobe_auth_check
