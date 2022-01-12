@@ -57,7 +57,7 @@ class AdobeSignProvider extends AbstractProvider
     protected function checkResponse(ResponseInterface $response, $data): void
     {
         if (400 <= $response->getStatusCode()) {
-            throw new Exception("Status Code: $response->getStatusCode()", 1);
+            throw new Exception("Status Code: {$response->getStatusCode}()", 1);
         }
     }
 

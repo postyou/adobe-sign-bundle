@@ -5,3 +5,6 @@
 # PHPUnit
 /app/phpunit.xml
 /phpunit.xml
+
+# PhpCsFixer
+.php-cs-fixer.cache

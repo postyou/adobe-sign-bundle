@@ -38,7 +38,7 @@ class AccessTokenManager
     public function getAccessToken(): AccessToken
     {
         if (empty($this->accessToken)) {
-            throw new Exception("No Access Token available", 1);               
+            throw new Exception('No Access Token available', 1);
         }
 
         if ($this->accessToken->hasExpired()) {
@@ -51,21 +51,6 @@ class AccessTokenManager
         return $this->accessToken;
     }
 
-    protected function read(): ?AccessToken
-    {
-        $accessToken = null;
-
-        if (\is_file($this->configFile)) {
-            $config = Yaml::parse(file_get_contents($this->configFile));
-
-            if (\is_array($config)) {
-                $accessToken = new AccessToken($config);
-            }
-        }
-
-        return $accessToken;
-    }
-
     public function write(AccessToken $accessToken, ?string $refreshToken = null): void
     {
         $content = $accessToken->jsonSerialize();
@@ -75,5 +60,20 @@ class AccessTokenManager
         }
 
         $this->filesystem->dumpFile($this->configFile, Yaml::dump($content));
+    }
+
+    protected function read(): ?AccessToken
+    {
+        $accessToken = null;
+
+        if (is_file($this->configFile)) {
+            $config = Yaml::parse(file_get_contents($this->configFile));
+
+            if (\is_array($config)) {
+                $accessToken = new AccessToken($config);
+            }
+        }
+
+        return $accessToken;
     }
 }
