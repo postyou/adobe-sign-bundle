@@ -20,7 +20,7 @@ class AdobeSignClient extends OAuth2Client
      *
      * @return mixed
      */
-    public function createAgreement(AccessToken $accessToken, array $agreementInfo)
+    public function createAgreement(AccessToken $accessToken, string $email, array $agreementInfo)
     {
         /** @var AdobeSignProvider */
         $provider = $this->getOAuth2Provider();
@@ -30,7 +30,10 @@ class AdobeSignClient extends OAuth2Client
             $provider->host.'/api/rest/v6/agreements',
             $accessToken,
             [
-                'headers' => ['Content-Type' => 'application/json'],
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'x-on-behalf-of-user' => $email,
+                ],
                 'body' => json_encode($agreementInfo),
             ]
         );
