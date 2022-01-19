@@ -32,10 +32,22 @@ class AdobeSignClient extends OAuth2Client
             [
                 'headers' => [
                     'Content-Type' => 'application/json',
-                    'x-on-behalf-of-user' => $email,
+                    'x-api-user' => "email:$email",
                 ],
                 'body' => json_encode($agreementInfo),
             ]
+        );
+
+        return $provider->getParsedResponse($request);
+    }
+
+    public function listUsers(AccessToken $accessToken)
+    {
+        $provider = $this->getOAuth2Provider();
+        $request = $provider->getAuthenticatedRequest(
+            'GET',
+            $provider->host.'/api/rest/v6/users',
+            $accessToken
         );
 
         return $provider->getParsedResponse($request);
