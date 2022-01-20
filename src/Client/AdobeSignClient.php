@@ -11,6 +11,7 @@ namespace Postyou\AdobeSignBundle\Client;
 
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
+use League\OAuth2\Client\Token\AccessToken;
 
 class AdobeSignClient extends OAuth2Client
 {
@@ -19,13 +20,15 @@ class AdobeSignClient extends OAuth2Client
      *
      * @return mixed
      */
-    public function createAgreement(AdobeAccessToken $accessToken, string $email, array $agreementInfo)
+    public function createAgreement(AccessToken $accessToken, string $email, array $agreementInfo)
     {
         /** @var AdobeSignProvider */
         $provider = $this->getOAuth2Provider();
+        $tokenValues = $accessToken->getValues();
+
         $request = $provider->getAuthenticatedRequest(
             'POST',
-            $accessToken->getApiAccessPoint.'api/rest/v6/agreements',
+            $tokenValues['api_access_point'].'api/rest/v6/agreements',
             $accessToken,
             [
                 'headers' => [
@@ -39,12 +42,14 @@ class AdobeSignClient extends OAuth2Client
         return $provider->getParsedResponse($request);
     }
 
-    public function listUsers(AdobeAccessToken $accessToken)
+    public function listUsers(AccessToken $accessToken)
     {
         $provider = $this->getOAuth2Provider();
+        $tokenValues = $accessToken->getValues();
+
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            $accessToken->getApiAccessPoint.'api/rest/v6/users',
+            $tokenValues['api_access_point'].'api/rest/v6/users',
             $accessToken
         );
 
@@ -56,12 +61,14 @@ class AdobeSignClient extends OAuth2Client
      *
      * @return mixed
      */
-    public function listLibraryDocuments(AdobeAccessToken $accessToken)
+    public function listLibraryDocuments(AccessToken $accessToken)
     {
         $provider = $this->getOAuth2Provider();
+        $tokenValues = $accessToken->getValues();
+
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            $accessToken->getApiAccessPoint.'api/rest/v6/libraryDocuments',
+            $tokenValues['api_access_point'].'api/rest/v6/libraryDocuments',
             $accessToken
         );
 

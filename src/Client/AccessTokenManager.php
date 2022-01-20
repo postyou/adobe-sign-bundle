@@ -11,6 +11,7 @@ namespace Postyou\AdobeSignBundle\Client;
 
 use Exception;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use League\OAuth2\Client\Token\AccessToken;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Yaml\Yaml;
@@ -19,7 +20,7 @@ class AccessTokenManager
 {
     private string $configFile;
     private Filesystem $filesystem;
-    private ?AdobeAccessToken $accessToken = null;
+    private ?AccessToken $accessToken = null;
     private AdobeSignClient $client;
 
     public function __construct(ClientRegistry $clientRegistry, string $projectDir)
@@ -34,7 +35,7 @@ class AccessTokenManager
         $this->client = $clientRegistry->getClient('adobe_sign');
     }
 
-    public function getAccessToken(): AdobeAccessToken
+    public function getAccessToken(): AccessToken
     {
         if (empty($this->accessToken)) {
             throw new Exception('No Access Token available', 1);
@@ -50,7 +51,7 @@ class AccessTokenManager
         return $this->accessToken;
     }
 
-    public function write(AdobeAccessToken $accessToken): void
+    public function write(AccessToken $accessToken): void
     {
         $content = $accessToken->jsonSerialize();
 
@@ -61,7 +62,7 @@ class AccessTokenManager
         $this->filesystem->dumpFile($this->configFile, Yaml::dump($content));
     }
 
-    protected function read(): ?AdobeAccessToken
+    protected function read(): ?AccessToken
     {
         $accessToken = null;
 
@@ -69,7 +70,7 @@ class AccessTokenManager
             $config = Yaml::parse(file_get_contents($this->configFile));
 
             if (\is_array($config)) {
-                $accessToken = new AdobeAccessToken($config);
+                $accessToken = new AccessToken($config);
             }
         }
 
