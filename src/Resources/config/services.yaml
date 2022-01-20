@@ -9,4 +9,3 @@ services:
     Postyou\AdobeSignBundle\Client\AccessTokenManager:
         arguments:
             $projectDir: '%kernel.project_dir%'
-

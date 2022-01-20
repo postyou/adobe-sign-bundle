@@ -19,26 +19,48 @@ class AdobeSignProvider extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    protected string $api_access_point = 'https://api.eu1.documents.adobe.com/';
-    protected string $web_access_point = 'https://eu1.documents.adobe.com/';
+    protected string $api_access_point;
+    protected string $web_access_point;
+    protected string $path_oauth;
+    protected string $path_refresh;
+    protected string $path_token;
+    protected string $path_revoke;
+
+    public function __construct(array $options = [], array $collaborators = [])
+    {
+        parent::__construct($options, $collaborators);
+
+        $this->api_access_point = $options['api_access_point'];
+
+        $this->web_access_point = $options['web_access_point'];
+
+        $this->path_oauth = $options['path_oauth'];
+
+        $this->path_refresh = $options['path_refresh'];
+
+        $this->path_token = $options['path_token'];
+
+        $this->path_revoke = $options['path_revoke'];
+    }
 
     public function getBaseAuthorizationUrl()
     {
-        return $this->web_access_point.'public/oauth/v2';
+        dd($this->web_access_point);
+        return "{$this->web_access_point}{$this->path_oauth}";
     }
 
     public function getBaseAccessTokenUrl(array $params)
     {
         if ('refresh_token' === $params['grant_type']) {
-            return $this->api_access_point.'oauth/v2/refresh';
+            return "{$this->api_access_point}{$this->path_refresh}";
         }
 
-        return $this->api_access_point.'oauth/v2/token';
+        return "{$this->api_access_point}{$this->path_token}";
     }
 
     public function getBaseRevokeTokenUrl()
     {
-        return $this->api_access_point.'oauth/v2/revoke';
+        return "{$this->api_access_point}{$this->path_revoke}";
     }
 
     public function getResourceOwnerDetailsUrl(AccessToken $token): void
