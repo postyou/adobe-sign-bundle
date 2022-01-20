@@ -9,3 +9,8 @@ services:
     Postyou\AdobeSignBundle\Client\AccessTokenManager:
         arguments:
             $projectDir: '%kernel.project_dir%'
+
+    Postyou\AdobeSignBundle\Client\AdobeSignProvider:
+        properties:
+            api_access_point: '%env(ADOBE_SIGN_API_ACCESS_POINT)%'
+            web_access_point: '%env(ADOBE_SIGN_WEB_ACCESS_POINT)%'

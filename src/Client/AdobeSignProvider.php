@@ -19,25 +19,26 @@ class AdobeSignProvider extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    public $host = 'https://api.eu2.adobesign.com';
+    protected string $api_access_point;
+    protected string $web_access_point;
 
     public function getBaseAuthorizationUrl()
     {
-        return $this->host.'/public/oauth';
+        return $this->web_access_point.'public/oauth/v2';
     }
 
     public function getBaseAccessTokenUrl(array $params)
     {
         if ('refresh_token' === $params['grant_type']) {
-            return $this->host.'/oauth/refresh';
+            return $this->api_access_point.'oauth/v2/refresh';
         }
 
-        return $this->host.'/oauth/token';
+        return $this->api_access_point.'oauth/v2/token';
     }
 
     public function getBaseRevokeTokenUrl()
     {
-        return $this->host.'/oauth/revoke';
+        return $this->api_access_point.'oauth/v2/revoke';
     }
 
     public function getResourceOwnerDetailsUrl(AccessToken $token): void
@@ -58,7 +59,7 @@ class AdobeSignProvider extends AbstractProvider
     {
         $statusCode = $response->getStatusCode();
         if (400 <= $statusCode) {
-            throw new Exception($statusCode . ' ' . $data['code'] . ': ' . $data['message'], 1);
+            throw new Exception($statusCode.' '.$data['code'].': '.$data['message'], 1);
         }
     }
 

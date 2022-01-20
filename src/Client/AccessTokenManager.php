@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Postyou\AdobeSignBundle\Client;
 
+use AccessToken;
 use Exception;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
-use League\OAuth2\Client\Token\AccessToken;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 use Symfony\Component\Yaml\Yaml;
@@ -51,12 +51,12 @@ class AccessTokenManager
         return $this->accessToken;
     }
 
-    public function write(AccessToken $accessToken, ?string $refreshToken = null): void
+    public function write(AccessToken $accessToken): void
     {
         $content = $accessToken->jsonSerialize();
 
-        if (!empty($refreshToken)) {
-            $content['refresh_token'] = $refreshToken;
+        if (isset($this->accessToken)) {
+            $content = array_merge($this->accessToken->jsonSerialize(), $content);
         }
 
         $this->filesystem->dumpFile($this->configFile, Yaml::dump($content));
