@@ -45,7 +45,6 @@ class AdobeSignProvider extends AbstractProvider
 
     public function getBaseAuthorizationUrl()
     {
-        dd($this->web_access_point);
         return "{$this->web_access_point}{$this->path_oauth}";
     }
 
