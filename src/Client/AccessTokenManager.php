@@ -19,7 +19,7 @@ class AccessTokenManager
 {
     private string $configFile;
     private Filesystem $filesystem;
-    private ?AccessToken $accessToken = null;
+    private ?AdobeAccessToken $accessToken = null;
     private AdobeSignClient $client;
 
     public function __construct(ClientRegistry $clientRegistry, string $projectDir)
@@ -34,7 +34,7 @@ class AccessTokenManager
         $this->client = $clientRegistry->getClient('adobe_sign');
     }
 
-    public function getAccessToken(): AccessToken
+    public function getAccessToken(): AdobeAccessToken
     {
         if (empty($this->accessToken)) {
             throw new Exception('No Access Token available', 1);
@@ -50,7 +50,7 @@ class AccessTokenManager
         return $this->accessToken;
     }
 
-    public function write(AccessToken $accessToken): void
+    public function write(AdobeAccessToken $accessToken): void
     {
         $content = $accessToken->jsonSerialize();
 
@@ -61,7 +61,7 @@ class AccessTokenManager
         $this->filesystem->dumpFile($this->configFile, Yaml::dump($content));
     }
 
-    protected function read(): ?AccessToken
+    protected function read(): ?AdobeAccessToken
     {
         $accessToken = null;
 
@@ -69,7 +69,7 @@ class AccessTokenManager
             $config = Yaml::parse(file_get_contents($this->configFile));
 
             if (\is_array($config)) {
-                $accessToken = new AccessToken($config);
+                $accessToken = new AdobeAccessToken($config);
             }
         }
 

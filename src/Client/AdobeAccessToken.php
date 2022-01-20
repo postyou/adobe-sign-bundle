@@ -9,9 +9,9 @@ declare(strict_types=1);
 
 namespace Postyou\AdobeSignBundle\Client;
 
-use League\OAuth2\Client\Token\AccessToken as LeagueAccessToken;
+use League\OAuth2\Client\Token\AccessToken;
 
-class AccessToken extends LeagueAccessToken
+class AdobeAccessToken extends AccessToken
 {
     protected string $api_access_point;
     protected string $web_access_point;

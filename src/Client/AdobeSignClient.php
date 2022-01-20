@@ -19,7 +19,7 @@ class AdobeSignClient extends OAuth2Client
      *
      * @return mixed
      */
-    public function createAgreement(AccessToken $accessToken, string $email, array $agreementInfo)
+    public function createAgreement(AdobeAccessToken $accessToken, string $email, array $agreementInfo)
     {
         /** @var AdobeSignProvider */
         $provider = $this->getOAuth2Provider();
@@ -39,7 +39,7 @@ class AdobeSignClient extends OAuth2Client
         return $provider->getParsedResponse($request);
     }
 
-    public function listUsers(AccessToken $accessToken)
+    public function listUsers(AdobeAccessToken $accessToken)
     {
         $provider = $this->getOAuth2Provider();
         $request = $provider->getAuthenticatedRequest(
@@ -56,7 +56,7 @@ class AdobeSignClient extends OAuth2Client
      *
      * @return mixed
      */
-    public function listLibraryDocuments(AccessToken $accessToken)
+    public function listLibraryDocuments(AdobeAccessToken $accessToken)
     {
         $provider = $this->getOAuth2Provider();
         $request = $provider->getAuthenticatedRequest(

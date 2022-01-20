@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Postyou\AdobeSignBundle\Client;
 
 use Exception;
+use League\OAuth2\Client\Grant\AbstractGrant;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
@@ -19,12 +20,17 @@ class AdobeSignProvider extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    protected string $api_access_point;
-    protected string $web_access_point;
+    protected string $api_access_point = 'https://api.eu1.documents.adobe.com/';
+    protected string $web_access_point = 'https://eu1.documents.adobe.com/';
 
     public function getBaseAuthorizationUrl()
     {
         return $this->web_access_point.'public/oauth/v2';
+    }
+
+    protected function createAccessToken(array $response, AbstractGrant $grant)
+    {
+        return new AdobeAccessToken($response);
     }
 
     public function getBaseAccessTokenUrl(array $params)
