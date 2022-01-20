@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Postyou\AdobeSignBundle\Client;
 
-use AccessToken;
 use Exception;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\Filesystem\Filesystem;

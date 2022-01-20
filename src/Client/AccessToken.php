@@ -7,6 +7,8 @@ declare(strict_types=1);
  * @license MIT
  */
 
+namespace Postyou\AdobeSignBundle\Client;
+
 use League\OAuth2\Client\Token\AccessToken as LeagueAccessToken;
 
 class AccessToken extends LeagueAccessToken

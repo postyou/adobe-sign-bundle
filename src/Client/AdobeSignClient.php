@@ -11,7 +11,6 @@ namespace Postyou\AdobeSignBundle\Client;
 
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
-use League\OAuth2\Client\Token\AccessToken;
 
 class AdobeSignClient extends OAuth2Client
 {
