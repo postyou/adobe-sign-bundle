@@ -19,12 +19,12 @@ class AdobeSignProvider extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    protected string $api_access_point;
-    protected string $web_access_point;
-    protected string $path_oauth;
-    protected string $path_refresh;
-    protected string $path_token;
-    protected string $path_revoke;
+    public string $api_access_point;
+    public string $web_access_point;
+    public string $path_oauth;
+    public string $path_refresh;
+    public string $path_token;
+    public string $path_revoke;
 
     public function __construct(array $options = [], array $collaborators = [])
     {

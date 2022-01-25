@@ -10,7 +10,7 @@ knpu_oauth2_client:
             redirect_params: {}
             provider_options:
                 web_access_point: 'https://secure.eu2.adobesign.com/'
-                api_access_point: 'https://api.eu2.adobesign.com'
+                api_access_point: 'https://api.eu2.adobesign.com/'
                 path_oauth: 'public/oauth'
                 path_refresh: 'oauth/refresh'
                 path_token: 'oauth/token'

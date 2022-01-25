@@ -26,9 +26,11 @@ class AdobeSignClient extends OAuth2Client
         $provider = $this->getOAuth2Provider();
         $tokenValues = $accessToken->getValues();
 
+        $apiAccessPoint = $tokenValues['api_access_point'] ?? $provider->api_access_point;
+
         $request = $provider->getAuthenticatedRequest(
             'POST',
-            $tokenValues['api_access_point'].'api/rest/v6/agreements',
+            $apiAccessPoint.'api/rest/v6/agreements',
             $accessToken,
             [
                 'headers' => [
@@ -66,9 +68,11 @@ class AdobeSignClient extends OAuth2Client
         $provider = $this->getOAuth2Provider();
         $tokenValues = $accessToken->getValues();
 
+        $apiAccessPoint = $tokenValues['api_access_point'] ?? $provider->api_access_point;
+
         $request = $provider->getAuthenticatedRequest(
             'GET',
-            $tokenValues['api_access_point'].'api/rest/v6/libraryDocuments',
+            $apiAccessPoint.'api/rest/v6/libraryDocuments',
             $accessToken
         );
 
