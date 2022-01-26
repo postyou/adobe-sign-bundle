@@ -36,8 +36,6 @@ class AccessTokenManager
         $this->configFile = Path::join($projectDir, 'config/adobe-sign.yaml');
         $this->filesystem = new Filesystem();
         $this->accessToken = $this->read();
-
-        /** @var OAuth2Client $this->client */
         $this->client = $clientRegistry->getClient('adobe_sign');
     }
 
@@ -65,7 +63,6 @@ class AccessTokenManager
 
     public function getProvider(): AdobeSignProvider
     {
-        /** @var AdobeSignProvider return */
         return $this->client->getOAuth2Provider();
     }
 

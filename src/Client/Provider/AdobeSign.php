@@ -77,7 +77,8 @@ class AdobeSign extends AbstractProvider
 
         if (400 <= $statusCode) {
             $message = \is_array($data) ? ": {$data['message']} ({$data['code']})" : '';
-            throw new Exception("$statusCode {$response->getReasonPhrase()}$message");
+
+            throw new Exception("{$statusCode} {$response->getReasonPhrase()}$message");
         }
     }
 
