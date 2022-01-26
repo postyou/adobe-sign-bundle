@@ -37,7 +37,7 @@
           "vendor/bin/php-cs-fixer fix -v --ansi"
         ],
         "psalm": [
-            "vendor/bin/psalm"
+            "vendor/bin/psalm --show-info=true"
         ]
     },
     "config": {

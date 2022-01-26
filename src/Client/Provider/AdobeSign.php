@@ -7,7 +7,7 @@ declare(strict_types=1);
  * @license MIT
  */
 
-namespace Postyou\AdobeSignBundle\Client;
+namespace Postyou\AdobeSignBundle\Client\Provider;
 
 use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -15,7 +15,7 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 
-class AdobeSignProvider extends AbstractProvider
+class AdobeSign extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
@@ -31,24 +31,19 @@ class AdobeSignProvider extends AbstractProvider
         parent::__construct($options, $collaborators);
 
         $this->api_access_point = $options['api_access_point'];
-
         $this->web_access_point = $options['web_access_point'];
-
         $this->path_oauth = $options['path_oauth'];
-
         $this->path_refresh = $options['path_refresh'];
-
         $this->path_token = $options['path_token'];
-
         $this->path_revoke = $options['path_revoke'];
     }
 
-    public function getBaseAuthorizationUrl()
+    public function getBaseAuthorizationUrl(): string
     {
         return "{$this->web_access_point}{$this->path_oauth}";
     }
 
-    public function getBaseAccessTokenUrl(array $params)
+    public function getBaseAccessTokenUrl(array $params): string
     {
         if ('refresh_token' === $params['grant_type']) {
             return "{$this->api_access_point}{$this->path_refresh}";
@@ -57,7 +52,7 @@ class AdobeSignProvider extends AbstractProvider
         return "{$this->api_access_point}{$this->path_token}";
     }
 
-    public function getBaseRevokeTokenUrl()
+    public function getBaseRevokeTokenUrl(): string
     {
         return "{$this->api_access_point}{$this->path_revoke}";
     }
@@ -79,8 +74,10 @@ class AdobeSignProvider extends AbstractProvider
     protected function checkResponse(ResponseInterface $response, $data): void
     {
         $statusCode = $response->getStatusCode();
+
         if (400 <= $statusCode) {
-            throw new Exception($statusCode.' '.$data['code'].': '.$data['message'], 1);
+            $message = \is_array($data) ? ": {$data['message']} ({$data['code']})" : '';
+            throw new Exception("$statusCode {$response->getReasonPhrase()}$message");
         }
     }
 
