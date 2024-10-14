@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Postyou\AdobeSignBundle\Client\Provider;
 
-use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
@@ -57,9 +56,7 @@ class AdobeSign extends AbstractProvider
         return "{$this->api_access_point}{$this->path_revoke}";
     }
 
-    public function getResourceOwnerDetailsUrl(AccessToken $token): void
-    {
-    }
+    public function getResourceOwnerDetailsUrl(AccessToken $token): void {}
 
     protected function getDefaultScopes()
     {
@@ -76,13 +73,17 @@ class AdobeSign extends AbstractProvider
         $statusCode = $response->getStatusCode();
 
         if (400 <= $statusCode) {
-            $message = \is_array($data) ? ": {$data['message']} ({$data['code']})" : '';
+            $message = '';
 
-            throw new Exception("{$statusCode} {$response->getReasonPhrase()}$message");
+            if (\is_array($data)) {
+                foreach ($data as $k => $v) {
+                    $message .= " {$k}: {$v};";
+                }
+            }
+
+            throw new \Exception("{$statusCode} {$response->getReasonPhrase()}:$message");
         }
     }
 
-    protected function createResourceOwner(array $response, AccessToken $token): void
-    {
-    }
+    protected function createResourceOwner(array $response, AccessToken $token): void {}
 }
