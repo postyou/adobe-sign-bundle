@@ -12,6 +12,7 @@ namespace Postyou\AdobeSignBundle\Client\Provider;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
+use Postyou\AdobeSignBundle\Client\AdobeErrorResponseException;
 use Psr\Http\Message\ResponseInterface;
 
 class AdobeSign extends AbstractProvider
@@ -73,15 +74,10 @@ class AdobeSign extends AbstractProvider
         $statusCode = $response->getStatusCode();
 
         if (400 <= $statusCode) {
-            $message = '';
-
-            if (\is_array($data)) {
-                foreach ($data as $k => $v) {
-                    $message .= " {$k}: {$v};";
-                }
-            }
-
-            throw new \Exception("{$statusCode} {$response->getReasonPhrase()}:$message");
+            throw new AdobeErrorResponseException(
+                message: "{$statusCode} {$response->getReasonPhrase()}",
+                data: \is_array($data) ? $data : [],
+            );
         }
     }
 
