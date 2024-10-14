@@ -8,3 +8,5 @@
 
 # PhpCsFixer
 .php-cs-fixer.cache
+
+.php-version
