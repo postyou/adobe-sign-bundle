@@ -21,7 +21,7 @@ $config = new PhpCsFixer\Config();
 return $config
     ->setRiskyAllowed(true)
     ->setRules([
-        '@PHP80Migration' => true,
+        '@PHP83Migration' => true,
         '@PHP80Migration:risky' => true,
         '@PhpCsFixer' => true,
         '@PhpCsFixer:risky' => true,
